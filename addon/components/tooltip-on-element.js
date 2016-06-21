@@ -276,9 +276,14 @@ export default EmberTetherComponent.extend({
           });
         }
 
-        $target.focusout(() => {
-          this.hide();
-        });
+        // if (_hideOn !== 'none') {
+          $target.focusout((event) => {
+            if (!$(event.originalEvent.relatedTarget).hasClass('tooltip')) {
+              // If they now focus on the tooltip we don't want to close this.
+              this.hide();
+            }
+          });
+        // }
       }
 
       $target.keydown((keyEvent) => {
